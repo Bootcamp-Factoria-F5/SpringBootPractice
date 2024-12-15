@@ -37,5 +37,10 @@ public class BookController {
         return book;
     }
 
+    @DeleteMapping("/{isbn}")
+    public void deleteBookByIsbn(@PathVariable String isbn) {
+        bookRepository.deleteByIsbn(isbn);
+
+    }
 
 }
