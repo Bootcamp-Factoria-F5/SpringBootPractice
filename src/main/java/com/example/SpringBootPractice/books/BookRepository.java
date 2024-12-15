@@ -13,4 +13,5 @@ public interface BookRepository {
         return Optional.empty();
     }
 
+    void save(Book book);
 }
