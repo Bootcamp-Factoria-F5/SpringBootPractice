@@ -28,5 +28,15 @@ public class InMemoryBookRepository implements BookRepository {
         return Optional.empty();
     }
 
+    @Override
+    public void save(Book book) {
+        booksDB.add(book);
+    }
+
+    @Override
+    public void deleteByIsbn(String isbn) {
+        booksDB.removeIf(book -> book.getIsbn().equals(isbn));
+    }
+
 
 }
