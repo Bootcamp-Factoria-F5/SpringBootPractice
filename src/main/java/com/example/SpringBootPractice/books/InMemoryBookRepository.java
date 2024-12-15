@@ -3,6 +3,7 @@ package com.example.SpringBootPractice.books;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class InMemoryBookRepository implements BookRepository {
 
@@ -20,11 +21,11 @@ public class InMemoryBookRepository implements BookRepository {
     }
 
     @Override
-    public Book findByIsbn(String isbn) {
+    public Optional<Book> findByIsbn(String isbn) {
         for (Book book : booksDB) {
-            if (book.getIsbn().equals(isbn)) return book;
+            if (book.getIsbn().equals(isbn)) return Optional.of(book);
         }
-        return null;
+        return Optional.empty();
     }
 
 
