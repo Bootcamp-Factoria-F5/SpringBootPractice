@@ -32,15 +32,31 @@ public class BookController {
     }
 
     @PostMapping
-    public Book createBook(@RequestBody Book book) {
-        bookRepository.save(book);
-        return book;
+    public ResponseEntity<?> createBook(@RequestBody Book book) {
+        // comprobar que no existe el ISBN + crear bad request
+
+
+        Optional<Book> existingBook = bookRepository.findByIsbn(book.getIsbn());
+        if (existingBook.isPresent()) {
+            return new ResponseEntity<>("Book ISBN already exists",HttpStatus.BAD_REQUEST);
+        }
+        Book savedBook = bookRepository.save(book);
+        return new ResponseEntity<>(savedBook, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{isbn}")
-    public void deleteBookByIsbn(@PathVariable String isbn) {
+    public ResponseEntity<?> deleteBookByIsbn(@PathVariable String isbn) {
+        // si no existe, retornar un 404
+        // si se ha borrado, retornar ok
+        Optional<Book> bookToDelete = bookRepository.findByIsbn(isbn);
+        if (bookToDelete.isEmpty()) {
+            return new ResponseEntity<>("Book not found with ISBN: " + isbn, HttpStatus.NOT_FOUND);
+        }
         bookRepository.deleteByIsbn(isbn);
+        return new ResponseEntity<>("Book with ISBN: " + isbn + " has been deleted.", HttpStatus.OK);
 
     }
+
+    // Update, modificar un libro por su ISBN
 
 }
