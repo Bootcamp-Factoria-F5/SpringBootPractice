@@ -13,7 +13,7 @@ public interface BookRepository {
         return Optional.empty();
     }
 
-    void save(Book book);
+    Book save(Book book);
 
     void deleteByIsbn(String isbn);
 }

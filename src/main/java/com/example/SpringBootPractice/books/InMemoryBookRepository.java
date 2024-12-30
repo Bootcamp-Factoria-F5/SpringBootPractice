@@ -23,19 +23,20 @@ public class InMemoryBookRepository implements BookRepository {
     @Override
     public Optional<Book> findByIsbn(String isbn) {
         for (Book book : booksDB) {
-            if (book.getIsbn().equals(isbn)) return Optional.of(book);
+            if (book.getIsbn(updatedBook.getIsbn()).equals(isbn)) return Optional.of(book);
         }
         return Optional.empty();
     }
 
     @Override
-    public void save(Book book) {
+    public Book save(Book book) {
         booksDB.add(book);
+        return book;
     }
 
     @Override
     public void deleteByIsbn(String isbn) {
-        booksDB.removeIf(book -> book.getIsbn().equals(isbn));
+        booksDB.removeIf(book -> book.getIsbn(updatedBook.getIsbn()).equals(isbn));
     }
 
 
