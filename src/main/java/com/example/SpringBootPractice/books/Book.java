@@ -20,15 +20,15 @@ public class Book {
 
 
     // Getters allow controlled access to private fields safely, following the principle of encapsulation
-    public String getIsbn() {     // A method that retrieves the isbn field.
-        return isbn;              // Returns the value of the isbn field.
+    public String getIsbn(String isbn) {     // A method that retrieves the isbn field.
+        return this.isbn;              // Returns the value of the isbn field.
     }
 
-    public String getTitle() {
-        return title;
+    public String getTitle(String title) {
+        return this.title;
     }
 
-    public String getAuthor() {
-        return author;
+    public String getAuthor(String author) {
+        return this.author;
     }
 }
